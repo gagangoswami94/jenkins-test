@@ -11,7 +11,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build "gagan"
+        app = docker.build("gagan/test")
     }
 
 
@@ -20,9 +20,9 @@ node {
          * First, the incremental build number from Jenkins
          * Second, the 'latest' tag.
          * Pushing multiple tags is cheap, as all the layers are reused. */
-        docker.withRegistry('https://registry.hub.docker.com/gagangiri94/test', 'docker-hub-credentials') {
-            docker.app.push("${env.BUILD_NUMBER}")
-            docker.app.push("latest")
+        docker.withRegistry('https://registry.hub.docker.com/', 'docker-hub-credentials') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
         }
     }
 }
